@@ -43,7 +43,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
                 weapon: w.name,
               },
             },
-          ] as ModifyBonus[],
+          ] as ModifyBonus[]
       ),
     },
     {
@@ -92,7 +92,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "STR",
+            stat: "FOR",
           },
         },
         {
@@ -105,7 +105,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "DEX",
+            stat: "DES",
           },
         },
         {
@@ -140,7 +140,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
               type: "armor",
               armor: a.name,
             },
-          }) as ModifyBonus,
+          } as ModifyBonus)
       ),
     },
   ],
@@ -222,7 +222,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "STR",
+            stat: "FOR",
           },
         },
         {
@@ -235,7 +235,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "WIS",
+            stat: "SAB",
           },
         },
       ] as ModifyBonus[],
@@ -285,7 +285,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "STR",
+            stat: "FOR",
           },
         },
         {
@@ -298,7 +298,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "DEX",
+            stat: "DES",
           },
         },
         {
@@ -311,7 +311,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "CHA",
+            stat: "CAR",
           },
         },
       ] as ModifyBonus[],
@@ -467,7 +467,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "STR",
+            stat: "FOR",
           },
         },
         {
@@ -480,7 +480,7 @@ export const CLASS_TALENTS: { [key in Class]: Talent[] } = {
           editable: true,
           metadata: {
             type: "stat",
-            stat: "DEX",
+            stat: "DES",
           },
         },
         {

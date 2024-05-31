@@ -28,16 +28,16 @@ import { alphabetically, clamp, compareDiceType, toInfo } from "../utils";
 import { slotsForGear } from "./Gear";
 
 export const PlayerCharacterStore = createUndoRedoStore(
-  writable<PlayerCharacter>(defaultPC()),
+  writable<PlayerCharacter>(defaultPC())
 );
 export const pc = PlayerCharacterStore;
 
 export function defaultPC(): PlayerCharacter {
   return {
-    name: "",
+    nome: "",
     ancestry: "Human",
     class: "",
-    level: 0,
+    level: 1,
     title: "Rook",
     alignment: "Lawful",
     background: "Scout",
@@ -45,7 +45,7 @@ export function defaultPC(): PlayerCharacter {
     notes: "",
     gear: [],
     customGear: [],
-    stats: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10 },
+    stats: { FOR: 10, DES: 10, CON: 10, INT: 10, SAB: 10, CAR: 10 },
     bonuses: [],
     customBonuses: [],
     customTalents: [],
@@ -66,13 +66,13 @@ export function defaultPC(): PlayerCharacter {
 
 export function calculateModifierForPlayerStat(
   pc: PlayerCharacter,
-  stat: Stat,
+  stat: Stat
 ): number {
   let finalModifier = 0;
   const baseModifier = clamp(
     Math.floor((calculateStatValueForPlayerStat(pc, stat) - 10) / 2),
     -4,
-    4,
+    4
   );
   finalModifier += baseModifier;
   return finalModifier;
@@ -92,7 +92,7 @@ export function setAncestryForPlayer(pc: PlayerCharacter, a: Ancestry | "") {
 
 export function calculateStatValueForPlayerStat(
   pc: PlayerCharacter,
-  stat: Stat,
+  stat: Stat
 ): number {
   const baseStat = pc.stats[stat];
   return baseStat + calculateBonusForPlayerStat(pc, stat);
@@ -114,7 +114,7 @@ function doesBonusApplyToWeapon(b: Bonus, w: WeaponInfo): boolean {
 export function calculateDamageDiceTypeForPlayerWeapon(
   pc: PlayerCharacter,
   w: WeaponInfo,
-  handedness: "oneHanded" | "twoHanded",
+  handedness: "oneHanded" | "twoHanded"
 ): DiceType {
   let result = w.damage[handedness].diceType;
 
@@ -123,7 +123,7 @@ export function calculateDamageDiceTypeForPlayerWeapon(
       (b) =>
         b.type === "diceType" &&
         b.bonusTo === "damageRoll" &&
-        doesBonusApplyToWeapon(b, w),
+        doesBonusApplyToWeapon(b, w)
     )
     .map((b: DiceTypeBonus) => b.diceType)
     .sort(compareDiceType)
@@ -139,7 +139,7 @@ export function calculateDamageDiceTypeForPlayerWeapon(
 
 export function calculateBonusForPlayerStat(
   pc: PlayerCharacter,
-  stat: Stat,
+  stat: Stat
 ): number {
   return pc.bonuses
     .filter(
@@ -147,7 +147,7 @@ export function calculateBonusForPlayerStat(
         b.type === "modifyAmt" &&
         b.bonusTo === "stat" &&
         b.metadata?.type === "stat" &&
-        b.metadata.stat === stat,
+        b.metadata.stat === stat
     )
     .reduce((acc, b: ModifyBonus) => acc + calculateBonusAmount(pc, b), 0);
 }
@@ -157,13 +157,13 @@ export function isPlayerHoldingShield(pc: PlayerCharacter): boolean {
     pc.gear
       .filter((g) => g.equipped)
       .map(toInfo<ArmorInfo>)
-      .find((g) => g.type === "Armor" && g.properties?.includes("OneHanded")),
+      .find((g) => g.type === "Armor" && g.properties?.includes("OneHanded"))
   );
 }
 
 export function calculateArmorClassForPlayer(pc: PlayerCharacter) {
   let baseAC = pc.armorClass;
-  let modsFromStat = calculateModifierForPlayerStat(pc, "DEX"); // default to DEX
+  let modsFromStat = calculateModifierForPlayerStat(pc, "DES"); // default to DEX
 
   let modsFromUnrestrictedBonuses = 0;
   for (const b of pc.bonuses) {
@@ -206,7 +206,7 @@ export function calculateArmorClassForPlayer(pc: PlayerCharacter) {
   let modsFromArmor = 0;
   let shouldAddStat = true;
   for (const a of armor) {
-    if (a.ac.stat && a.ac.stat !== "DEX") {
+    if (a.ac.stat && a.ac.stat !== "DES") {
       modsFromStat = calculateModifierForPlayerStat(pc, a.ac.stat);
     }
 
@@ -217,7 +217,7 @@ export function calculateArmorClassForPlayer(pc: PlayerCharacter) {
         (b) =>
           b.type === "modifyAmt" &&
           b.metadata?.type === "armor" &&
-          b.metadata.armor === a.name,
+          b.metadata.armor === a.name
       )
       .reduce((acc, b: ModifyBonus) => acc + b.bonusAmount, 0);
 
@@ -250,10 +250,10 @@ export function calculateTitleForPlayer(pc: PlayerCharacter): Title | null {
 
 export function calculateSpellCastingModifierForPlayer(
   pc: PlayerCharacter,
-  spell: SpellInfo,
+  spell: SpellInfo
 ): number {
   let result = 0;
-  const stat = spell.stat ?? (pc.class === "Priest" ? "WIS" : "INT");
+  const stat = spell.stat ?? (pc.class === "Priest" ? "SAB" : "INT");
   const baseModifier = calculateModifierForPlayerStat(pc, stat);
   result += baseModifier;
 
@@ -299,7 +299,7 @@ export function calculateSpellCastingModifierForPlayer(
 
 export function calculateDamageBonusForPlayerWeapon(
   pc: PlayerCharacter,
-  w: WeaponInfo,
+  w: WeaponInfo
 ): number {
   let result = 0;
 
@@ -338,12 +338,12 @@ export function calculateDamageBonusForPlayerWeapon(
 
 export function calculateAttackBonusForPlayerWeapon(
   pc: PlayerCharacter,
-  w: WeaponInfo,
+  w: WeaponInfo
 ): number {
   let result = 0;
   // melee vs ranged
-  const strMod = calculateModifierForPlayerStat(pc, "STR");
-  const dexMod = calculateModifierForPlayerStat(pc, "DEX");
+  const strMod = calculateModifierForPlayerStat(pc, "FOR");
+  const dexMod = calculateModifierForPlayerStat(pc, "DES");
   if (w.properties?.includes("Finesse") || w.weaponType === "MeleeRanged") {
     result += Math.max(strMod, dexMod);
   } else {
@@ -385,7 +385,7 @@ export function calculateAttackBonusForPlayerWeapon(
 }
 
 export function calculateGearSlotsForPlayer(pc: PlayerCharacter) {
-  const base = Math.max(10, pc.stats.STR);
+  const base = Math.max(10, pc.stats.FOR);
 
   const bonuses = pc.bonuses.reduce((acc: number, b: Bonus) => {
     if (b.type === "modifyAmt" && b.bonusTo === "gearSlots") {
@@ -394,7 +394,7 @@ export function calculateGearSlotsForPlayer(pc: PlayerCharacter) {
           acc +
           Math.max(
             b.bonusAmount,
-            calculateModifierForPlayerStat(pc, b.metadata.stat),
+            calculateModifierForPlayerStat(pc, b.metadata.stat)
           )
         );
       } else {
@@ -476,18 +476,18 @@ export function calculateTotalHitPointsForPlayer(pc: PlayerCharacter): number {
 
 export function calculateBonusAmount(
   pc: PlayerCharacter,
-  b: ModifyBonus,
+  b: ModifyBonus
 ): number {
   let result = b.bonusAmount;
 
   if (b.bonusTo !== "stat" && b.metadata?.type === "stat") {
     result = Math.max(
       result,
-      calculateModifierForPlayerStat(pc, b.metadata.stat),
+      calculateModifierForPlayerStat(pc, b.metadata.stat)
     );
   }
   const levelRateBonus = Math.floor(
-    pc.level * (b.bonusIncreaseRatePerLevel ?? 0),
+    pc.level * (b.bonusIncreaseRatePerLevel ?? 0)
   );
   return result + levelRateBonus;
 }
@@ -567,8 +567,8 @@ export function calculateFreeHands(pc: PlayerCharacter): number {
     return acc + (isWeaponOneHandable ? 1 : 2);
   }, 0);
 
-  freeHands -= equippedArmor.filter(
-    (a) => a.properties?.includes("OneHanded"),
+  freeHands -= equippedArmor.filter((a) =>
+    a.properties?.includes("OneHanded")
   ).length;
 
   return freeHands;

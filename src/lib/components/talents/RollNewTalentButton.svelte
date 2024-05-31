@@ -113,22 +113,22 @@
     talentChoiceOrStatsChoice = undefined;
     statDistributionRemaining = 2;
     newStats = {
-      STR: $pc.stats.STR,
-      DEX: $pc.stats.DEX,
+      FOR: $pc.stats.FOR,
+      DES: $pc.stats.DES,
       CON: $pc.stats.CON,
       INT: $pc.stats.INT,
-      WIS: $pc.stats.WIS,
-      CHA: $pc.stats.CHA,
+      SAB: $pc.stats.SAB,
+      CAR: $pc.stats.CAR,
     };
   }
 
   $: newStats = {
-    STR: $pc.stats.STR,
-    DEX: $pc.stats.DEX,
+    FOR: $pc.stats.FOR,
+    DES: $pc.stats.DES,
     CON: $pc.stats.CON,
     INT: $pc.stats.INT,
-    WIS: $pc.stats.WIS,
-    CHA: $pc.stats.CHA,
+    SAB: $pc.stats.SAB,
+    CAR: $pc.stats.CAR,
   };
 
   function updateSheet() {

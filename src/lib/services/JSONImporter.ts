@@ -99,7 +99,7 @@ function importFromShadowDarklingsJson(json: any): PlayerCharacter {
       (b: SDBonus) =>
         !b.name.includes("Spell:") &&
         !b.bonusName.includes("StatBonus") &&
-        !b.bonusTo.includes("Languages"),
+        !b.bonusTo.includes("Languages")
     )
     .map(mapSDBonusToBonus)
     .flat();
@@ -188,7 +188,7 @@ function mapSDBonusToBonus(sdb: SDBonus): Bonus | Bonus[] {
       bonusTo: "statRoll",
       type: "advantage",
       desc: `Advantage on ${sdb.bonusName} checks`,
-      metadata: { type: "stat", stat: "STR" },
+      metadata: { type: "stat", stat: "FOR" },
       ...commonBonusData,
     };
   } else if (sdb.name === "ArmorMaster") {

@@ -90,7 +90,7 @@ export type StatBlock = {
   [key in Stat]: number;
 };
 export type PlayerCharacter = {
-  name: string;
+  nome: string;
   ancestry: Ancestry | "";
   hasCustomAncestry?: boolean;
   class?: Class | "";

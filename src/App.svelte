@@ -75,7 +75,7 @@
           <div class="flex gap-1 justify-around">
             <div class="flex flex-col items-center">
               <div class="flex items-center gap-1">
-                <h1 class="">Shadowdark</h1>
+                <h1 class="">Tormenta</h1>
                 <InfoButton />
               </div>
               {#if $isSaveInProgress}
@@ -116,22 +116,22 @@
           </div>
         </div>
         <div class="cell">
-          <StatView forStat="STR" />
+          <StatView forStat="FOR" />
         </div>
         <div class="cell">
           <StatView forStat="INT" />
         </div>
         <div class="cell">
-          <StatView forStat="DEX" />
+          <StatView forStat="DES" />
         </div>
         <div class="cell">
-          <StatView forStat="WIS" />
+          <StatView forStat="SAB" />
         </div>
         <div class="cell">
           <StatView forStat="CON" />
         </div>
         <div class="cell">
-          <StatView forStat="CHA" />
+          <StatView forStat="CAR" />
         </div>
         <div class="row-span-2 cell">
           <HpView />
@@ -148,8 +148,8 @@
       >
         <div class="col-span-full cell">
           <label>
-            <h2>NAME</h2>
-            <input type="text" bind:value={$pc.name} />
+            <h2>NOME</h2>
+            <input type="text" bind:value={$pc.nome} />
           </label>
         </div>
         <div class="col-span-full cell">
@@ -174,7 +174,7 @@
           <h2>XP</h2>
           <label for="xp" />
           <div class="sheet-stat flex gap-1">
-            {#if $pc.level < 10}
+            {#if $pc.level < 1000}
               <input
                 id="xp"
                 type="number"

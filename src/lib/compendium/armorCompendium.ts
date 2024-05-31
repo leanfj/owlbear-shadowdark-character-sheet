@@ -35,7 +35,7 @@ export const ARMORS: ArmorInfo[] = [
     cost: { gp: 60, sp: 0, cp: 0 },
     canBeEquipped: true,
     slots: { freeCarry: 0, perSlot: 1, slotsUsed: 2 },
-    ac: { base: 13, modifier: 0, stat: "DEX" },
+    ac: { base: 13, modifier: 0, stat: "DES" },
     playerBonuses: [
       {
         type: "generic",
@@ -55,7 +55,7 @@ export const ARMORS: ArmorInfo[] = [
     cost: { gp: 240, sp: 0, cp: 0 },
     canBeEquipped: true,
     slots: { freeCarry: 0, perSlot: 1, slotsUsed: 1 },
-    ac: { base: 13, modifier: 0, stat: "DEX" },
+    ac: { base: 13, modifier: 0, stat: "DES" },
   },
   {
     name: "Leather Armor",
@@ -63,7 +63,7 @@ export const ARMORS: ArmorInfo[] = [
     cost: { gp: 10, sp: 0, cp: 0 },
     canBeEquipped: true,
     slots: { freeCarry: 0, perSlot: 1, slotsUsed: 1 },
-    ac: { base: 11, modifier: 0, stat: "DEX" },
+    ac: { base: 11, modifier: 0, stat: "DES" },
   },
   {
     name: "Shield",
